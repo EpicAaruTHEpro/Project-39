@@ -96,12 +96,40 @@ class Game{
                          case 5: fruits.addImage("fruit1", fruit5_img);
                          break;
                      }
-                     fruitGroup.add(fruits);
+                     fruitGroup.push(fruits);
+                     
                      
                  }
                  
                   if (player.index !== null) {
                      //fill code here, to destroy the objects.
+                     fill(255);
+                     text("Player 1: " + p1score, 200, 300);
+                     text("Player 2: " + p2score, 200, 400);
+                     if (fruitGroup.isTouching(players)) {
+                        if (fruitGroup.isTouching(players[index-1])) {
+                            player.score+=1;
+                            p1score=allPlayers.player2.score+1;
+                            //console.log(allPlayers.player2.score);
+                        }
+
+                        else if (fruitGroup.isTouching(players[index-2])) {
+                            player.score+=1;
+                            p2score=allPlayers.player1.score+1;
+                            //console.log(allPlayers.player1.score);
+                        }
+                        //console.log(fruitGroup.length);
+                        for (var i = 0; i<fruitGroup.length; i++) {
+                            //console.log(i);
+                            if (player1.isTouching(fruitGroup) || player2.isTouching(fruitGroup)) {
+                                console.log(i + "i");
+                                console.log(fruitGroup.length + "fruitgroup");
+                                fruitGroup.splice(i,1);
+                                //fruits.destroy(i);
+                            }
+                        }
+                     }
+                     player.update();
                   }
                 
 
