@@ -83,6 +83,7 @@ class Game{
                  if (frameCount % 20 === 0) {
                      fruits = createSprite(random(100, 1000), 0, 100, 100);
                      fruits.velocityY = 6;
+                     fruits.lifetime = 100;
                      var rand = Math.round(random(1,5));
                      switch(rand){
                          case 1: fruits.addImage("fruit1",fruit1_img);
@@ -106,6 +107,7 @@ class Game{
                      fill(255);
                      text("Player 1: " + p1score, 200, 300);
                      text("Player 2: " + p2score, 200, 400);
+
                      if (fruitGroup.isTouching(players)) {
                         if (fruitGroup.isTouching(players[index-1])) {
                             player.score+=1;
@@ -118,16 +120,13 @@ class Game{
                             p2score=allPlayers.player1.score+1;
                             //console.log(allPlayers.player1.score);
                         }
-                        //console.log(fruitGroup.length);
-                        for (var i = 0; i<fruitGroup.length; i++) {
+
+                     for (var i = 0; i<fruitGroup.length; i++) {
+                        if (fruitGroup[i].isTouching(players)) {
                             //console.log(i);
-                            if (player1.isTouching(fruitGroup) || player2.isTouching(fruitGroup)) {
-                                console.log(i + "i");
-                                console.log(fruitGroup.length + "fruitgroup");
-                                fruitGroup.splice(i,1);
-                                //fruits.destroy(i);
-                            }
+                            fruitGroup[i].destroy();
                         }
+                    }
                      }
                      player.update();
                   }
